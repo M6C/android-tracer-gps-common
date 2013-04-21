@@ -67,21 +67,21 @@ public class GpsUtil {
 			logMe("Point A (lat/lon) : " + decimalFormat.format(lat1) + " " + decimalFormat.format(lon1) + "n" + "Point B (lat/lon) : "
 					+ decimalFormat.format(lat2) + " " + decimalFormat.format(lon2));
 
-		// Conversion des entrées en ° vers en radian
+		// Conversion des entrees de degres vers en radian
 		lat1 = Math.toRadians(lat1);
 		lon1 = Math.toRadians(lon1);
 		lat2 = Math.toRadians(lat2);
 		lon2 = Math.toRadians(lon2);
 
 		tempsT1 = System.nanoTime();
-		double distance = distanceVolOiseauEntre2PointsAvecPrécision(lat1, lon1, lat2, lon2);
+		double distance = distanceVolOiseauEntre2PointsAvecPrecision(lat1, lon1, lat2, lon2);
 		tempsT2 = System.nanoTime();
-		logMe("Temps (AvecPrécision) : " + String.format("%10d", (tempsT2 - tempsT1)) + " ns");
+		logMe("Temps (AvecPrecision) : " + String.format("%10d", (tempsT2 - tempsT1)) + " ns");
 		double distanceEnKm = distance * r;
 
 		if (log)
 			logMe("Distance      : " + decimalFormat.format(distance) + " (" + distance + ")n"
-					+ "Distance (km) calcul précis pour courtes distances         : " + decimalFormat.format(distanceEnKm) + " km (" + distanceEnKm + ")n"
+					+ "Distance (km) calcul precis pour courtes distances         : " + decimalFormat.format(distanceEnKm) + " km (" + distanceEnKm + ")n"
 					+ ")n" + "");
 		
 		return distanceEnKm;
@@ -101,7 +101,7 @@ public class GpsUtil {
 					+ decimalFormat.format(lat2) + " " + decimalFormat.format(lon2));
 
 		/**
-		 * Conversion des entrées en ° vers en radian
+		 * Conversion des entrees en ° vers en radian
 		 */
 		lat1 = Math.toRadians(lat1);
 		lon1 = Math.toRadians(lon1);
@@ -109,25 +109,25 @@ public class GpsUtil {
 		lon2 = Math.toRadians(lon2);
 
 		tempsT1 = System.nanoTime();
-		double distanceEloigné = distanceVolOiseauEntre2PointsSansPrécision(lat1, lon1, lat2, lon2);
+		double distanceEloigne = distanceVolOiseauEntre2PointsSansPrecision(lat1, lon1, lat2, lon2);
 		tempsT2 = System.nanoTime();
-		logMe("Temps (SansPrécision) : " + String.format("%10d", (tempsT2 - tempsT1)) + " ns");
-		double distanceEloignéEnKm = distanceEloigné * r;
+		logMe("Temps (SansPrecision) : " + String.format("%10d", (tempsT2 - tempsT1)) + " ns");
+		double distanceEloigneEnKm = distanceEloigne * r;
 
 		if (log)
-			logMe("Distance Eloigné      : " + decimalFormat.format(distanceEloigné) + " (" + distanceEloigné + ")n"
-					+ "Distance Eloigné (km) calcul non précis pour distances non courtes : " + decimalFormat.format(distanceEloignéEnKm) + " km (" + distanceEloignéEnKm
+			logMe("Distance Eloigne      : " + decimalFormat.format(distanceEloigne) + " (" + distanceEloigne + ")n"
+					+ "Distance Eloigne (km) calcul non precis pour distances non courtes : " + decimalFormat.format(distanceEloigneEnKm) + " km (" + distanceEloigneEnKm
 					+ ")n" + "");
 		
-		return distanceEloignéEnKm;
+		return distanceEloigneEnKm;
 	}
 
 	/**
 	 * Distance entre 2 points GPS
 	 * http://dotclear.placeoweb.com/post/Formule-de-calcul-entre-2-points-wgs84-pour-calculer-la-distance-qui-separe-ces-deux-points
 	 * 
-	 * La distance mesurée le long d'un arc de grand cercle entre deux points
-	 * dont on connaît les coordonnées {lat1,lon1} et {lat2,lon2} est donnée par
+	 * La distance mesuree le long d'un arc de grand cercle entre deux points
+	 * dont on connaît les coordonnees {lat1,lon1} et {lat2,lon2} est donnee par
 	 * : d=acos(sin(lat1)*sin(lat2)+cos(lat1)*cos(lat2)*cos(lon1-lon2)) Le tout
 	 * * 6366 pour l'avoir en km
 	 * 
@@ -137,8 +137,8 @@ public class GpsUtil {
 	 * @param lon2
 	 * @return
 	 */
-	private static double distanceVolOiseauEntre2PointsSansPrécision(double lat1, double lon1, double lat2, double lon2) {
-		logMe("distanceVolOiseauEntre2PointsSansPrécision");
+	private static double distanceVolOiseauEntre2PointsSansPrecision(double lat1, double lon1, double lat2, double lon2) {
+		logMe("distanceVolOiseauEntre2PointsSansPrecision");
 
 		// d=acos(sin(lat1)*sin(lat2)+cos(lat1)*cos(lat2)*cos(lon1-lon2))
 
@@ -154,9 +154,9 @@ public class GpsUtil {
 	 * calcul-entre-2-points-wgs84-
 	 * pour-calculer-la-distance-qui-separe-ces-deux-points
 	 * 
-	 * La distance mesurée le long d'un arc de grand cercle entre deux points
-	 * dont on connaît les coordonnées {lat1,lon1} et {lat2,lon2} est donnée par
-	 * : La formule, mathématiquement équivalente, mais moins sujette aux
+	 * La distance mesuree le long d'un arc de grand cercle entre deux points
+	 * dont on connaît les coordonnees {lat1,lon1} et {lat2,lon2} est donnee par
+	 * : La formule, mathematiquement equivalente, mais moins sujette aux
 	 * erreurs d'arrondis pour les courtes distances est : *
 	 * d=2*asin(sqrt((sin((lat1-lat2)/2))^2 + cos(lat1)*cos(lat2)*(sin((lon1-
 	 * lon2)/2))^2)) Le tout * 6366 pour l'avoir en km
@@ -167,8 +167,8 @@ public class GpsUtil {
 	 * @param lon2
 	 * @return
 	 */
-	private static double distanceVolOiseauEntre2PointsAvecPrécision(double lat1, double lon1, double lat2, double lon2) {
-		logMe("distanceVolOiseauEntre2PointsAvecPrécision");
+	private static double distanceVolOiseauEntre2PointsAvecPrecision(double lat1, double lon1, double lat2, double lon2) {
+		logMe("distanceVolOiseauEntre2PointsAvecPrecision");
 
 		// d=2*asin(sqrt((sin((lat1-lat2)/2))^2 +
 		// cos(lat1)*cos(lat2)*(sin((lon1- lon2)/2))^2))
